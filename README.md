@@ -8,24 +8,24 @@ Tomás Borodowski
 ## Descripción : 
 Esta App puede generar  partidos de  futbol entre diferentes equipos.
 
-#Endpoints
+# Endpoints
 
-##POST
-###Partido
-###Equipo
+## POST
+### Partido
+### Equipo
 
-##GET
-###Partido
-###Equipo
+## GET
+### Partido
+### Equipo
 
-##PUT
-###Partido
-
-
-##PATCH
-###Equipo
+## PUT
+### Partido
 
 
-##DELETE
-###Partido
-###Equipo
+## PATCH
+### Equipo
+
+
+## DELETE
+### Partido
+### Equipo
