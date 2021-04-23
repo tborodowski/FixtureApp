@@ -1,0 +1,297 @@
+openapi: 3.0.1
+info:
+  title: FixtureApp
+  description: 'Documentacion del proyecto para arquitecturaWeb. Tomás Borodowski'
+  version: v1
+paths:
+  /Partidos/:
+    get:
+      tags:
+        - Partidos
+      summary: Se obtienen lo partidos
+      description: Devuelve los partidos segun los filtros ingresados
+      parameters:
+        - name: Equipo
+          in: query
+          description: Nombre del equipo.
+          required: false
+          schema:
+            type: string
+            description: Nombre del equipo.
+            format: string
+        - name: Fecha
+          in: query
+          description: Fecha.
+          required: false
+          schema:
+            type: string
+            description: Fecha.
+            format: string
+        - name: Cancha
+          in: query
+          description: Id de la cancha.
+          required: false
+          schema:
+            type: string
+            description: Id de la cancha.
+            format: Int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partidos_PartidoApiModel'
+        '400':
+          description: 'Unexpected error'
+        '404':
+          description: No se encontro Partido.
+  '/Partidos/{Id}':
+    get:
+      tags:
+        - Partidos
+      summary: Devuelve un partido
+      description: Devuelve un partido
+      parameters:
+        - name: id
+          in: path
+          description: Id del partido.
+          required: true
+          schema:
+            type: integer
+            description: Id del partido.
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partidos_PartidoApiModel'
+        '400':
+          description: Unexpected Error
+        '404':
+          description: No se encontro el partido
+    post:
+      tags:
+        - Partidos
+      summary: Guardar Partido
+      description: Guardar Partido
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partidos_PartidoApiModel'
+      responses:
+        '201':
+          description: Partido Creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partidos_PartidoApiModel'
+        '400':
+          description: Partido invalido or Unexpected Error
+    put:
+      tags:
+        - Partidos
+      summary: Actualiza partido
+      description: Actualiza partido.
+      parameters:
+        - name: Id
+          in: path
+          description:  Id del partido.
+          required: true
+          schema:
+            type: integer
+            description:  Id del partido.
+            format: int32
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partidos_PartidoApiModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Partidos_PartidoApiModel'
+        '400':
+          description: Invalid search parameters supplied or Unexpected Error
+        '404':
+          description: No matching partido found
+    delete:
+      tags:
+        - Partidos
+      summary: Delete Partido
+      description: Delete Partido.
+      parameters:
+        - name: Id
+          in: path
+          description:  Id del partido.
+          required: true
+          schema:
+            type: integer
+            description:  Id del partido.
+            format: int32
+      responses:
+        '200':
+          description: Partido deleted successfully.
+        '400':
+          description: Invalid search parameters supplied  or Unexpected error
+        '404':
+          description: No matching partido found 
+  
+
+  
+  '/Equipos/{Id}':
+    get:
+      tags:
+        - Equipos
+      summary: Retrieve Location
+      description: Get a single location
+      parameters:
+        - name: Id
+          in: path
+          description: Identifier for a unique location.
+          required: true
+          schema:
+            type: integer
+            description: Identifier for a unique location.
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipos_EquipoApiModel'
+        '400':
+          description: Invalid search parameters supplied or Unexpected Error
+        '404':
+          description: No matching location found
+    put:
+      tags:
+        - Equipos
+      summary: Update Location
+      description: Updates a location.
+      parameters:
+        - name: Id
+          in: path
+          description: Identifier for a unique location.
+          required: true
+          schema:
+            type: integer
+            description: Identifier for a unique location.
+            format: int32
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Equipos_EquipoApiModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Equipos_EquipoApiModel'
+        '400':
+          description: Invalid search parameters supplied or Unexpected Error
+        '404':
+          description: No matching location found
+    delete:
+      tags:
+        - Equipos
+      summary: Delete Location
+      description: Delete location.
+      parameters:
+        - name: Id
+          in: path
+          description: Identifier for a unique location.
+          required: true
+          schema:
+            type: integer
+            description: Identifier for a unique location.
+            format: int32
+      responses:
+        '200':
+          description: Location deleted successfully.
+        '400':
+          description: Invalid search parameters supplied  or Unexpected error
+        '404':
+          description: No matching location found or No matching passengers found
+  
+components:
+  schemas:
+
+    Partidos_PartidoApiModel:
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: Unique identifier for the location record.
+          format: int32
+        chanchaId:
+          type: integer
+          description: Location identifier as supplied by the ALC client.
+          format: int32
+          nullable: true
+        fecha:
+          type: string
+          description: Name of the location.
+          nullable: true
+        localId:
+          type: integer
+          description: Id of the ALC client the location is associated with.
+          format: int32
+        visitanteId:
+          type: string
+          description: Name of the client.
+          nullable: true
+        golesLoc:
+          type: integer
+          description: Id of the program the location is associated with.
+          format: int32
+        golesVis:
+          type: string
+          description: Name of the program.
+          nullable: true
+        finalizado:
+          type: boolean
+          description: ALC ID of the passenger associated with the location.
+          
+    Equipos_EquipoApiModel:
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: Unique identifier for the location record.
+          format: int32
+        nombre:
+          type: integer
+          description: Location identifier as supplied by the ALC client.
+          format: int32
+          nullable: true
+        Posicion:
+          type: string
+          description: Name of the location.
+          nullable: true
+        Capitan:
+          type: integer
+          description: Id of the ALC client the location is associated with.
+          format: int32
+        puntos:
+          type: integer
+          description: Id of the program the location is associated with.
+          format: int32
+        activo:
+          type: boolean
+          description: ALC ID of the passenger associated with the location.
