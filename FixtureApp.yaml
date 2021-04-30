@@ -152,16 +152,16 @@ paths:
     get:
       tags:
         - Equipos
-      summary: Retrieve Location
-      description: Get a single location
+      summary: Devuelve el Equipo
+      description: Devuelve el equipo correspondiente al Id
       parameters:
         - name: Id
           in: path
-          description: Identifier for a unique location.
+          description: Id de equipo.
           required: true
           schema:
             type: integer
-            description: Identifier for a unique location.
+            description: Id de equipo.
             format: int32
       responses:
         '200':
@@ -171,22 +171,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/Equipos_EquipoApiModel'
         '400':
-          description: Invalid search parameters supplied or Unexpected Error
+          description:Unexpected Error
         '404':
-          description: No matching location found
+          description: No matching equipo found
     put:
       tags:
         - Equipos
-      summary: Update Location
-      description: Updates a location.
+      summary: Update Equipo
+      description: Update del Equipo
       parameters:
         - name: Id
           in: path
-          description: Identifier for a unique location.
+          description: Id de equipo.
           required: true
           schema:
             type: integer
-            description: Identifier for a unique location.
+            description: Id de equipo.
             format: int32
       requestBody:
         description: ''
@@ -204,30 +204,30 @@ paths:
                 items:
                   $ref: '#/components/schemas/Equipos_EquipoApiModel'
         '400':
-          description: Invalid search parameters supplied or Unexpected Error
+          description: Unexpected Error
         '404':
-          description: No matching location found
+          description: No matching equipo found
     delete:
       tags:
         - Equipos
-      summary: Delete Location
-      description: Delete location.
+      summary: Delete equipo
+      description: Delete equipo.
       parameters:
         - name: Id
           in: path
-          description: Identifier for a unique location.
+          description: Id de equipo.
           required: true
           schema:
             type: integer
-            description: Identifier for a unique location.
+            description: Id de equipo.
             format: int32
       responses:
         '200':
-          description: Location deleted successfully.
+          description: Equipo deleted successfully.
         '400':
-          description: Invalid search parameters supplied  or Unexpected error
+          description: Unexpected error
         '404':
-          description: No matching location found or No matching passengers found
+          description: No matching equipo found.
   
 components:
   schemas:
@@ -237,61 +237,61 @@ components:
       properties:
         Id:
           type: integer
-          description: Unique identifier for the location record.
+          description: Id de partido
           format: int32
         chanchaId:
           type: integer
-          description: Location identifier as supplied by the ALC client.
+          description: Id de cancha
           format: int32
           nullable: true
         fecha:
           type: string
-          description: Name of the location.
+          description: Fecha del partido.
           nullable: true
         localId:
           type: integer
-          description: Id of the ALC client the location is associated with.
+          description: Id del equipo local.
           format: int32
         visitanteId:
           type: string
-          description: Name of the client.
+          description: Id del equipo visitante.
           nullable: true
         golesLoc:
           type: integer
-          description: Id of the program the location is associated with.
+          description: Goles del equipo local
           format: int32
         golesVis:
           type: string
-          description: Name of the program.
+          description: Goles del equipo visitante
           nullable: true
         finalizado:
           type: boolean
-          description: ALC ID of the passenger associated with the location.
+          description: Indica si el partido finalizó
           
     Equipos_EquipoApiModel:
       type: object
       properties:
         Id:
           type: integer
-          description: Unique identifier for the location record.
+          description: Id del equipo.
           format: int32
         nombre:
           type: integer
-          description: Location identifier as supplied by the ALC client.
+          description: Nombre del equipo.
           format: int32
           nullable: true
         Posicion:
           type: string
-          description: Name of the location.
+          description: Posicion  en la tabla.
           nullable: true
         Capitan:
           type: integer
-          description: Id of the ALC client the location is associated with.
+          description: Capitan del Equipo.
           format: int32
         puntos:
           type: integer
-          description: Id of the program the location is associated with.
+          description: Puntos del equipo.
           format: int32
         activo:
           type: boolean
-          description: ALC ID of the passenger associated with the location.
+          description: Indica si el equipo se dio de baja.
