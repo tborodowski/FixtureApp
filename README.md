@@ -1,6 +1,8 @@
 # FixtureApp
 Esta App puede generar  partidos de  futbol entre diferentes equipos
 
+Probar el archivo FixtureApp.yaml en https://editor.swagger.io/
+
 ## Grupo : 
 Tboro
 ## Integrantes:
