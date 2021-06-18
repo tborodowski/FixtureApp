@@ -1,11 +1,12 @@
 const express = require("express");
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 let partido = {
- id:'',
- canchaId: '',
+ id:'1',
+ canchaId: '55',
  fecha: "string",
  localId: 0,
  visitanteId: "string",
@@ -28,6 +29,8 @@ let respuesta = {
  codigo: 200,
  mensaje: ''
 };
+
+
 app.get('/', function(req, res) {
  respuesta = {
   error: true,
@@ -36,13 +39,24 @@ app.get('/', function(req, res) {
  };
  res.send(respuesta);
 });
-app.get('/usuario', function (req, res) {
+
+
+app.get('/partidos', function (req, res) {
+
+    const fs = require('fs');
+
+    fs.readFile('partidos.json', (err, data) => {
+        if (err) throw err;
+        let partido = JSON.parse(data);
+        console.log(partido);
+    });
+
  respuesta = {
   error: false,
   codigo: 200,
   mensaje: ''
  };
- if(usuario.nombre === '' || usuario.apellido === '') {
+ if(partido.id === '') {
   respuesta = {
    error: true,
    codigo: 501,
@@ -53,18 +67,22 @@ app.get('/usuario', function (req, res) {
    error: false,
    codigo: 200,
    mensaje: 'respuesta del usuario',
-   respuesta: usuario
+   respuesta: partido
   };
  }
  res.send(respuesta);
 });
-app.post('/usuario', function (req, res) {
+
+
+app.post('/partidos', function (req, res) {
+    
  if(!req.body.nombre || !req.body.apellido) {
   respuesta = {
    error: true,
    codigo: 502,
    mensaje: 'El campo nombre y apellido son requeridos'
   };
+
  } else {
   if(usuario.nombre !== '' || usuario.apellido !== '') {
    respuesta = {
@@ -77,6 +95,16 @@ app.post('/usuario', function (req, res) {
     nombre: req.body.nombre,
     apellido: req.body.apellido
    };
+   const data = JSON.stringify(user);
+
+
+fs.writeFile('partidos.json', data, (err) => {
+    if (err) {
+        throw err;
+    }
+    console.log("JSON data is saved.");
+});
+   
    respuesta = {
     error: false,
     codigo: 200,
@@ -84,11 +112,12 @@ app.post('/usuario', function (req, res) {
     respuesta: usuario
    };
   }
+  
  }
- 
+
  res.send(respuesta);
 });
-app.put('/usuario', function (req, res) {
+app.put('/partidos', function (req, res) {
  if(!req.body.nombre || !req.body.apellido) {
   respuesta = {
    error: true,
@@ -118,7 +147,7 @@ app.put('/usuario', function (req, res) {
  
  res.send(respuesta);
 });
-app.delete('/usuario', function (req, res) {
+app.delete('/partidos', function (req, res) {
  if(usuario.nombre === '' || usuario.apellido === '') {
   respuesta = {
    error: true,
