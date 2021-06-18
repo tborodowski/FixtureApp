@@ -11,7 +11,7 @@ let partido = {
  localId: 0,
  visitanteId: "string",
  golesLoc: 0,
- golesVis: "string",
+ golesVis: 0,
  finalizado: true
 };
 
@@ -44,39 +44,38 @@ app.get('/', function(req, res) {
 app.get('/partidos', function (req, res) {
 
     const fs = require('fs');
-
+    
     fs.readFile('partidos.json', (err, data) => {
         if (err) throw err;
-        let partido = JSON.parse(data);
-        console.log(partido);
+        let partidos = JSON.parse(data);
+        console.log(partidos);
+        respuesta = {
+            error: false,
+            codigo: 200,
+            mensaje: ''
+           };
+           if(partidos.id === '') {
+            respuesta = {
+             error: true,
+             codigo: 501,
+             mensaje: 'El partido no ha sido creado'
+            };
+           } else {
+            respuesta = {
+             error: false,
+             codigo: 200,
+             mensaje: 'respuesta del partido',
+             respuesta: partidos
+            };
+           }
+           res.send(respuesta);
     });
-
- respuesta = {
-  error: false,
-  codigo: 200,
-  mensaje: ''
- };
- if(partido.id === '') {
-  respuesta = {
-   error: true,
-   codigo: 501,
-   mensaje: 'El usuario no ha sido creado'
-  };
- } else {
-  respuesta = {
-   error: false,
-   codigo: 200,
-   mensaje: 'respuesta del usuario',
-   respuesta: partido
-  };
- }
- res.send(respuesta);
 });
 
 
 app.post('/partidos', function (req, res) {
     
- if(!req.body.nombre || !req.body.apellido) {
+ if(!req.body.id || !req.body.apellido) {
   respuesta = {
    error: true,
    codigo: 502,
@@ -91,11 +90,17 @@ app.post('/partidos', function (req, res) {
     mensaje: 'El usuario ya fue creado previamente'
    };
   } else {
-   usuario = {
-    nombre: req.body.nombre,
-    apellido: req.body.apellido
+   partido = {
+    id: req.body.id,
+    canchaId: req.body.canchaId,
+    fecha : req.body.fecha,
+    localId : req.body.localId,
+    visitanteId : req.body.visitanteId,
+    golesLoc : req.body.golesLoc,
+    golesVis : req.body.golesVis,
+    finalizado: false
    };
-   const data = JSON.stringify(user);
+   const data = JSON.stringify(partido);
 
 
 fs.writeFile('partidos.json', data, (err) => {
@@ -108,8 +113,8 @@ fs.writeFile('partidos.json', data, (err) => {
    respuesta = {
     error: false,
     codigo: 200,
-    mensaje: 'Usuario creado',
-    respuesta: usuario
+    mensaje: 'partido creado',
+    respuesta: partido
    };
   }
   

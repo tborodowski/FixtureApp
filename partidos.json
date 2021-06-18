@@ -1,10 +1,10 @@
 {
     "id":1,
     "canchaId": 55,
-    "fecha": "string",
-    "localId": 0,
-    "visitanteId": "string",
-    "golesLoc": 0,
-    "golesVis": "string",
+    "fecha": "12-09-2021",
+    "localId": 5,
+    "visitanteId": "Boca",
+    "golesLoc": 2,
+    "golesVis": 3,
     "finalizado": true
 }
