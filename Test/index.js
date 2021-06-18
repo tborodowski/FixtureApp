@@ -75,7 +75,7 @@ app.get('/partidos', function (req, res) {
 
 app.post('/partidos', function (req, res) {
     
- if(!req.body.id || !req.body.apellido) {
+ if(!req.body.id || !req.body.canchaId) {
   respuesta = {
    error: true,
    codigo: 502,
@@ -83,7 +83,7 @@ app.post('/partidos', function (req, res) {
   };
 
  } else {
-  if(usuario.nombre !== '' || usuario.apellido !== '') {
+  if(false) {
    respuesta = {
     error: true,
     codigo: 503,
